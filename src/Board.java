@@ -14,15 +14,10 @@ public class Board extends JPanel{
 	private Random r;
 	private boolean myturn;
 	private int turn;
-	private byte whoru;
-	private JFrame thisParent;
-	private JPanel moreReferencesThanThereShouldBe;
+	private byte whoami, whoru;
 	
 	public Board(JFrame ref) {
 		super();
-		
-		thisParent = ref;
-		moreReferencesThanThereShouldBe = this;
 		
 		//sets layout to a 3x3 grid like a Tic-Tac-Toe board
 		setLayout(new GridLayout(3,3));
@@ -32,7 +27,7 @@ public class Board extends JPanel{
 		
 		//initialize each element in the array and add it to the panel
 		for(int b=0; b<space.length; b++) {
-			space[b] = new Space(b);
+			space[b] = new Space();
 			add(space[b]);
 		}
 		
@@ -62,7 +57,7 @@ public class Board extends JPanel{
 		/*determines who is X and who is O
 		 * x=1 ; o=-1
 		 */
-		byte whoami = 0;
+		whoami = 0;
 		if(r.nextBoolean()) {
 			whoami = 1;
 			myturn = true;
@@ -71,7 +66,12 @@ public class Board extends JPanel{
 			whoami = -1;
 		
 		//sets human to opposite of computer
-		whoru = (byte) (-1*whoami); 
+		whoru = (byte) (-1*whoami);
+		
+		for(Space y : space) {
+			y.setText("");
+			y.myVal = 0;
+		}
 		
 		for(int x=0; x<space.length; x++) {
 			space[x].addActionListener(new ActionListener() {
@@ -96,7 +96,9 @@ public class Board extends JPanel{
 		//enables all spaces
 		setAllEnabled(true);
 		
-		//end INIT
+		/***
+		 * end INIT
+		*/
 		
 		//game loop
 		int st = 0;
@@ -136,10 +138,17 @@ public class Board extends JPanel{
 			JOptionPane.showMessageDialog(this, "One step closer to world domination!");
 		}
 		
-		//removes JPanel containing the board
-		thisParent.remove(moreReferencesThanThereShouldBe);
-		thisParent.revalidate();
+		//gameception
+		Thread t = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				game();
+			}
+		});
+		t.start();
 		
+
 	}
 
 	private int computerTurn() {

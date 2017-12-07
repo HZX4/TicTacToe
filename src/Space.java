@@ -2,11 +2,8 @@ import javax.swing.JButton;
 
 public class Space extends JButton{
 	
-	public int myLoc, myVal;
-	
-	public Space(int a) {
-		super();
-		myLoc = a;
-	}
+	private static final long serialVersionUID = -434101660304594720L;
+
+	public int myVal;
 	
 }
