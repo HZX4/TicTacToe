@@ -1,7 +1,9 @@
 import javax.swing.JFrame;
 
 public class TicRunner extends JFrame{
-	
+
+	private static final long serialVersionUID = 8161664751347162051L;
+
 	/***
 	 * Originally written by Haylee Thomas
 	 * 7 December 2017 ©
