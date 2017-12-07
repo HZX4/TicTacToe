@@ -26,7 +26,7 @@ public class TicRunner extends JFrame{
 		setLocationRelativeTo(null);
 		
 		//adds Board object to frame (Board extends JPanel)
-		add(new Board());
+		add(new Board(this));
 		
 		//open window
 		setVisible(true);
