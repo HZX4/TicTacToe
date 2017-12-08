@@ -109,12 +109,14 @@ public class Board extends JPanel{
 		
 		//game loop
 		int st = 0;
-		while(!isFull()) {
+		while(true) {
 			
 			st = isWinner();
 			if(st!=0)
 				break;
-			
+			else if(isFull())
+				break;
+				
 			if(myturn) {
 				turn = computerTurn();
 				space[turn].setEnabled(false);
