@@ -1,6 +1,7 @@
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.Random;
 
 import javax.swing.JFrame;
@@ -54,6 +55,10 @@ public class Board extends JPanel{
 		//sets default turn to human
 		myturn = false;
 		
+		//clears data and adds first state
+		BoardState.clearState();
+		BoardState.updateState(space);
+		
 		/*determines who is X and who is O
 		 * x=1 ; o=-1
 		 */
@@ -88,6 +93,8 @@ public class Board extends JPanel{
 							clicked.setText("X");
 						else
 							clicked.setText("O");
+						
+						BoardState.updateState(space);
 					}
 				}
 			});
@@ -118,6 +125,8 @@ public class Board extends JPanel{
 					space[turn].setText("X");
 				else
 					space[turn].setText("O");
+				
+				BoardState.updateState(space);
 			}
 			
 			//Thread sleeps so it is not using too many resources
@@ -138,7 +147,15 @@ public class Board extends JPanel{
 			JOptionPane.showMessageDialog(this, "One step closer to world domination!");
 		}
 		
-		//gameception
+		//export data files
+		try {
+			BoardState.exportState();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		//gameception (starts new game)
 		Thread t = new Thread(new Runnable() {
 			@Override
 			public void run() {
