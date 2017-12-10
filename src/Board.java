@@ -57,6 +57,8 @@ public class Board extends JPanel{
 		
 		//clears data and adds first state
 		BoardState.clearState();
+		for(Space s: space)
+			s.myVal = 0;
 		BoardState.updateState(space);
 		
 		/*determines who is X and who is O

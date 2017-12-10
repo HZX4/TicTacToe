@@ -6,14 +6,21 @@ import java.util.Random;
 
 public class BoardState {
 
-	public static ArrayList<Space[]> state;
+	public static ArrayList<String> state = new ArrayList<String>();
 	
 	public static void updateState(Space[] s) {
-		state.add(s);
+		String temp = "";
+		for(int x=0; x<s.length; x++) {
+			temp += s[x].myVal;
+			if(x<s.length-1) {
+				temp+="@";
+			}
+		}
+		state.add(temp);
 	}
 	
 	public static void clearState() {
-		state = new ArrayList<Space[]>();
+		state = new ArrayList<String>();
 	}
 	
 	public static void exportState() throws IOException {
@@ -29,13 +36,10 @@ public class BoardState {
 		FileWriter fw = new FileWriter(file);
 		
 		for(int x=0; x<state.size(); x++) {
-			fw.write("$");
-			for(int y=0; y<state.get(x).length; y++) {
-				fw.write(Integer.toString(state.get(x)[y].myVal));
-				if(y<8){
-					fw.write("@");
-				}
+			if(x>0) {
+				fw.write("$");
 			}
+			fw.write(state.get(x));
 		}
 		
 		fw.flush();
